@@ -7,10 +7,13 @@
         <entry key="..\:/Users/Vizi/AndroidStudioProjects/AD340/app/src/main/res/drawable/ic_launcher_background.xml" value="0.173" />
         <entry key="..\:/Users/Vizi/AndroidStudioProjects/AD340/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/Vizi/AndroidStudioProjects/AD340/app/src/main/res/layout/item_daily_forecast.xml" value="0.33" />
+        <entry key="..\:/Users/ajied/AndroidStudioProjects/AD340/app/src/main/res/layout/activity_forecast_details.xml" value="0.5" />
+        <entry key="..\:/Users/ajied/AndroidStudioProjects/AD340/app/src/main/res/layout/item_daily_forecast.xml" value="0.2" />
+        <entry key="..\:/Users/ajied/AndroidStudioProjects/AD340/app/src/main/res/menu/settings_menu.xml" value="0.2" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
