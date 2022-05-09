@@ -10,10 +10,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.example.ad340.R
-import com.example.ad340.TempDisplaySetting
-import com.example.ad340.TempDisplaySettingManager
-import com.example.ad340.formatTempDisplay
+import com.example.ad340.*
 
 class ForecastDetailsActivity : AppCompatActivity() {
 
@@ -44,26 +41,10 @@ class ForecastDetailsActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.tempDisplaySetting -> {
-                showTempDisplaySettingDialog()
+                showTempDisplaySettingDialog(this, tempDisplaySettingManager)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun showTempDisplaySettingDialog() {
-        val dialogBuilder = AlertDialog.Builder(this)
-            .setTitle("Chose Display Unit")
-            .setMessage("Choose which temperature unit to use for temperature display")
-            .setPositiveButton("F°"){ _, _ ->
-                tempDisplaySettingManager.updateSetting(TempDisplaySetting.Fahrenheit)
-            }
-            .setNeutralButton("C°"){_, _ ->
-                tempDisplaySettingManager.updateSetting(TempDisplaySetting.Celsius)
-            }
-            .setOnDismissListener{
-                Toast.makeText(this, "Setting will take affect after app restart", Toast.LENGTH_SHORT).show()
-            }
-        dialogBuilder.show()
     }
 }
