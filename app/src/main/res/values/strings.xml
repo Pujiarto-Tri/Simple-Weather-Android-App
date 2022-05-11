@@ -6,4 +6,6 @@
     <string name="zipcode_entry_error">Please Enter a valid zipcode</string>
 
     <string name="forecast_clicked_format">Forecast: %1$.2f %2$s</string>
+    
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
