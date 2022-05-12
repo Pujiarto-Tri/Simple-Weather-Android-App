@@ -1,25 +1,20 @@
 package com.example.ad340
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
-import androidx.lifecycle.Observer
+import android.widget.Toolbar
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.ad340.details.ForecastDetailsActivity
-import com.example.ad340.forecast.CurrentForecastFragment
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.example.ad340.forecast.CurrentForecastFragmentDirections
-import com.example.ad340.location.LocationEntryFragment
-import com.example.ad340.location.LocationEntryFragmentDirections
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity(), AppNavigator {
+class MainActivity : AppCompatActivity(){
 
     private lateinit var tempDisplaySettingManager: TempDisplaySettingManager
 
@@ -28,6 +23,14 @@ class MainActivity : AppCompatActivity(), AppNavigator {
         setContentView(R.layout.activity_main)
 
         tempDisplaySettingManager = TempDisplaySettingManager(this)
+
+//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+//        val navController: NavController = navHostFragment.navController
+
+        val navController = findNavController(R.id.nav_host_fragment)
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar).setTitle(R.string.app_name)
+        findViewById<BottomNavigationView>(R.id.bottomNavigationView).setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -45,18 +48,6 @@ class MainActivity : AppCompatActivity(), AppNavigator {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-    override fun navigateToCurrentForcast(zipcode: String) {
-        val action = LocationEntryFragmentDirections.actionLocationEntryFragmentToCurrentForecastFragment2()
-        findNavController(R.id.nav_host_fragment).navigate(action)
-    }
-
-    override fun navigateToLocationEntry() {
-        val action = CurrentForecastFragmentDirections.actionCurrentForecastFragmentToLocationEntryFragment()
-        findNavController(R.id.nav_host_fragment).navigate(action)
-    }
-
-
 }
 
 

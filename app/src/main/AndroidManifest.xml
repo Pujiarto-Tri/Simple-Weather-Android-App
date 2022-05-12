@@ -9,9 +9,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AD340">
         <activity
-            android:name=".details.ForecastDetailsActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
