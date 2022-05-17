@@ -1,21 +1,17 @@
 package com.example.ad340.forecast
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.view.isGone
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.ad340.*
 import com.example.ad340.api.CurrentWeather
-import com.example.ad340.api.DailyForecast
-import com.example.ad340.details.ForecastDetailsFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 /**
@@ -35,12 +31,19 @@ class CurrentForecastFragment : Fragment() {
     ): View? {
 
         val view =  inflater.inflate(R.layout.fragment_current_forecast, container, false)
-        val locationName: TextView = view.findViewById(R.id.locationName)
-        val tempText: TextView = view.findViewById(R.id.tempText)
-        val zipcode = arguments?.getString(KEY_ZIPCODE) ?: ""
+        val locationName = view.findViewById<TextView>(R.id.locationName)
+        val tempText = view.findViewById<TextView>(R.id.tempText)
+        val emptyText = view.findViewById<TextView>(R.id.emptyText)
+        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
+
         tempDisplaySettingManager = TempDisplaySettingManager(requireContext())
 
         val currentWeatherObserver = Observer<CurrentWeather> { weather ->
+            emptyText.visibility = View.GONE
+            progressBar.visibility = View.GONE
+            locationName.visibility = View.VISIBLE
+            tempText.visibility = View.VISIBLE
+
             locationName.text = weather.name
             tempText.text = formatTempDisplay(weather.forecast.temp, tempDisplaySettingManager.getTempDisplaySetting())
         }
@@ -54,7 +57,10 @@ class CurrentForecastFragment : Fragment() {
         locationRepository = LocationRepository(requireContext())
         val savedLocationObserver = Observer<Location> { savedLocation ->
             when (savedLocation) {
-                is Location.Zipcode -> forecastRepository.loadCurrentForecast(savedLocation.zipcode)
+                is Location.Zipcode -> {
+                    progressBar.visibility = View.VISIBLE
+                    forecastRepository.loadCurrentForecast(savedLocation.zipcode)
+                }
             }
         }
         locationRepository.savedLocation.observe(viewLifecycleOwner, savedLocationObserver)
